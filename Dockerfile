@@ -100,3 +100,13 @@ FROM frankenphp_dev AS frankenphp_devcontainer
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	openssh-client \
 	&& rm -rf /var/lib/apt/lists/*
+
+ENV COMPOSER_ALLOW_SUPERUSER=0
+
+ARG USERNAME=vscode
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+
+RUN addgroup --gid $USER_GID $USERNAME \
+	&& adduser --uid $USER_UID --gid $USER_GID $USERNAME \
+	&& adduser $USERNAME www-data

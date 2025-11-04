@@ -6,6 +6,7 @@
 	],
 	"service": "php",
 	"workspaceFolder": "/app",
+	"remoteUser": "vscode",
 	"forwardPorts": [80, 443],
 	"customizations": {
         "vscode": {
