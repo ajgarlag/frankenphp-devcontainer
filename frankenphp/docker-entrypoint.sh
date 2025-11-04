@@ -6,7 +6,17 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 		composer install --prefer-dist --no-progress --no-interaction
 	fi
 
+	if [ -f /usr/sbin/gosu ]; then
+		chgrp -R www-data var /data /config
+		setfacl -R -m u:www-data:rwX -m u:vscode:rwX var /data /config
+		setfacl -dR -m u:www-data:rwX -m u:vscode:rwX var /data /config
+	fi
+
 	echo 'PHP app ready!'
 fi
 
-exec docker-php-entrypoint "$@"
+if [ -f /usr/sbin/gosu ]; then
+	exec /usr/sbin/gosu www-data docker-php-entrypoint "$@"
+else
+	exec docker-php-entrypoint "$@"
+fi

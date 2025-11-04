@@ -98,6 +98,8 @@ RUN set -eux; \
 FROM frankenphp_dev AS frankenphp_devcontainer
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+	acl \
+	gosu \
 	openssh-client \
 	&& rm -rf /var/lib/apt/lists/*
 
