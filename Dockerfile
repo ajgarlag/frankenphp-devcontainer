@@ -40,6 +40,9 @@ ENV MERCURE_TRANSPORT_URL=bolt:///data/mercure.db
 ENV PHP_INI_SCAN_DIR=":$PHP_INI_DIR/app.conf.d"
 
 ###> recipes ###
+###> doctrine/doctrine-bundle ###
+RUN install-php-extensions pdo_pgsql
+###< doctrine/doctrine-bundle ###
 ###< recipes ###
 
 COPY --link frankenphp/conf.d/10-app.ini $PHP_INI_DIR/app.conf.d/
@@ -99,6 +102,7 @@ FROM frankenphp_dev AS frankenphp_devcontainer
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	acl \
+	bash-completion \
 	gosu \
 	openssh-client \
 	&& rm -rf /var/lib/apt/lists/*
@@ -111,3 +115,5 @@ ARG USER_GID=$USER_UID
 
 RUN addgroup --gid $USER_GID $USERNAME \
 	&& adduser --uid $USER_UID --gid $USER_GID $USERNAME
+
+RUN echo 'eval "$(/app/bin/console completion bash)"' >> /home/vscode/.bashrc
