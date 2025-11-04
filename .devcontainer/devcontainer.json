@@ -1,0 +1,21 @@
+{
+	"dockerComposeFile": [
+		"../compose.yaml",
+		"../compose.override.yaml",
+		"compose.devcontainer.yaml"
+	],
+	"service": "php",
+	"workspaceFolder": "/app",
+	"forwardPorts": [80, 443],
+	"customizations": {
+        "vscode": {
+            "settings": {
+                "php.validate.executablePath": "/usr/local/bin/php"
+            },
+            "extensions": [
+                "bmewburn.vscode-intelephense-client",
+                "-vscode.php-language-features"
+            ]
+        }
+    }
+}
