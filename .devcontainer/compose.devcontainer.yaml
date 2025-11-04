@@ -5,8 +5,6 @@ services:
         build:
             context: .
             target: frankenphp_devcontainer
-        volumes:
-            - ./.devcontainer/Caddyfile:/etc/frankenphp/Caddyfile:ro
         ports: !reset []
         environment:
             SERVER_NAME: ${SERVER_NAME:-http://localhost, localhost}
