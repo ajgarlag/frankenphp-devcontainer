@@ -7,9 +7,12 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	fi
 
 	if [ -f /usr/sbin/gosu ]; then
-		chgrp -R vscode var /data /config
-		setfacl -R -m u:vscode:rwX -m u:vscode:rwX var /data /config
-		setfacl -dR -m u:vscode:rwX -m u:vscode:rwX var /data /config
+		for path in composer.lock vendor var /data /config
+		do
+			chown -R vscode:vscode $path
+			setfacl -R -m u:vscode:rwX -m u:vscode:rwX $path
+			setfacl -dR -m u:vscode:rwX -m u:vscode:rwX $path
+		done
 	fi
 
 	echo 'PHP app ready!'
