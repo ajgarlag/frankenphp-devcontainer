@@ -2,7 +2,7 @@
 set -e
 
 if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
-	if [ -f composer.json ] && [ -z "$(ls -A 'vendor/' 2>/dev/null)" ]; then
+	if [ -f composer.json ] && ([ ! -f composer.lock ] || [ -z "$(ls -A 'vendor/' 2>/dev/null)" ]); then
 		composer install --prefer-dist --no-progress --no-interaction
 	fi
 
